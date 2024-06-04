@@ -1,0 +1,84 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Asset {
+  category     EnumAssetCategory?
+  createdAt    DateTime           @default(now())
+  id           String             @id @default(cuid())
+  name         String?
+  purchaseDate DateTime?
+  updatedAt    DateTime           @updatedAt
+  value        Float?
+}
+
+model Investor {
+  createdAt   DateTime @default(now())
+  email       String?
+  firstName   String?
+  id          String   @id @default(cuid())
+  lastName    String?
+  phoneNumber String?
+  updatedAt   DateTime @updatedAt
+}
+
+model Income {
+  amount      Float?
+  createdAt   DateTime  @default(now())
+  date        DateTime?
+  description String?
+  id          String    @id @default(cuid())
+  source      String?
+  updatedAt   DateTime  @updatedAt
+}
+
+model Budget {
+  amount    Float?
+  category  EnumBudgetCategory?
+  createdAt DateTime            @default(now())
+  endDate   DateTime?
+  id        String              @id @default(cuid())
+  startDate DateTime?
+  updatedAt DateTime            @updatedAt
+}
+
+model Account {
+  accountType EnumAccountAccountType?
+  balance     Float?
+  createdAt   DateTime                @default(now())
+  currency    String?
+  id          String                  @id @default(cuid())
+  institution String?
+  updatedAt   DateTime                @updatedAt
+}
+
+model Expense {
+  amount      Float?
+  category    EnumExpenseCategory?
+  createdAt   DateTime             @default(now())
+  date        DateTime?
+  description String?
+  id          String               @id @default(cuid())
+  updatedAt   DateTime             @updatedAt
+}
+
+enum EnumAssetCategory {
+  Option1
+}
+
+enum EnumBudgetCategory {
+  Option1
+}
+
+enum EnumAccountAccountType {
+  Option1
+}
+
+enum EnumExpenseCategory {
+  Option1
+}
